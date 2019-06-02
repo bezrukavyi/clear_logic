@@ -5,25 +5,34 @@ module ClearResult
     include Dry::Transaction
     include ClearResult::Type
 
-    def call(*args)
-      super(*args)
-    rescue *self.class.exceptions.keys => e
-      send(self.class.exceptions[e.class], e.message)
-    end
-
     class << self
-      attr_accessor :exceptions
+      attr_accessor :context_class
 
       def call(*args)
         new.call(*args)
       end
 
-      def rescue_callbacks(exceptions = {})
-        self.exceptions ||= {}
-        self.exceptions.merge!(exceptions)
+      def inherited(base)
+        base.class_eval do
+          attr_reader :context
+
+          context
+
+          tee :init_context
+
+          private
+
+          def init_context(*args)
+            @context = self.class.context_class.new(*args)
+          end
+        end
+      end
+
+      def context(&block)
+        self.context_class = ClearResult::ContextBuilder.call("#{name}Context")
+
+        context_class.class_eval(&block) if block_given?
       end
     end
-
-    rescue_callbacks
   end
 end

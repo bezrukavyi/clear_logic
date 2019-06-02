@@ -36,6 +36,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'dry-matcher', '>= 0.7'
   spec.add_dependency 'dry-monads', '>= 0.3.1'
   spec.add_dependency 'dry-transaction', '>= 0.12.0'
+  spec.add_dependency 'dry-initializer'
+  spec.add_dependency 'dry-types'
 
   spec.add_development_dependency 'bundler', '~> 1.17'
   spec.add_development_dependency 'pry'

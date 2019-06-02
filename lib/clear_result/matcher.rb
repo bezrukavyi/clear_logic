@@ -36,7 +36,7 @@ module ClearResult
       patterns.any? { |pattern| send("#{pattern}_pattern", result) }
     end
 
-    ClearResult::Type::ERRORS.each do |error_type, _error_status|
+    ClearResult::Type::ERRORS.each do |error_type|
       define_method error_type do |result|
         result.failure? && result.value.dig(:error, :type) == error_type
       end

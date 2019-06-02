@@ -2,9 +2,11 @@ PATH
   remote: .
   specs:
     clear_result (0.1.0)
+      dry-initializer
       dry-matcher (>= 0.7)
       dry-monads (>= 0.3.1)
       dry-transaction (>= 0.12.0)
+      dry-types
 
 GEM
   remote: https://rubygems.org/
@@ -25,6 +27,12 @@ GEM
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4)
       dry-equalizer (~> 0.2)
+    dry-inflector (0.1.2)
+    dry-initializer (3.0.1)
+    dry-logic (1.0.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.2)
+      dry-equalizer (~> 0.2)
     dry-matcher (0.7.0)
     dry-monads (1.2.0)
       concurrent-ruby (~> 1.0)
@@ -35,6 +43,13 @@ GEM
       dry-events (>= 0.1.0)
       dry-matcher (>= 0.7.0)
       dry-monads (>= 0.4.0)
+    dry-types (1.0.0)
+      concurrent-ruby (~> 1.0)
+      dry-container (~> 0.3)
+      dry-core (~> 0.4, >= 0.4.4)
+      dry-equalizer (~> 0.2, >= 0.2.2)
+      dry-inflector (~> 0.1, >= 0.1.2)
+      dry-logic (~> 1.0)
     method_source (0.9.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
