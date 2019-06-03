@@ -3,7 +3,7 @@
 module ClearResult
   class Service
     include Dry::Transaction
-    include ClearResult::Type
+    include ClearResult::Result
 
     class << self
       attr_accessor :context_class

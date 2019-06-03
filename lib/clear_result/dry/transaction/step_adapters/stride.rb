@@ -7,7 +7,7 @@ module Dry
     class StepAdapters
       class Stride
         include Dry::Monads::Result::Mixin
-        include ClearResult::Type
+        include ClearResult::Result
 
         def call(operation, options, args)
           context = args.flatten.first

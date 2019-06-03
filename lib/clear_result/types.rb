@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ClearResult
-  class DryTypes
+  class Types
     attr_reader :klass
 
     def initialize(klass)
