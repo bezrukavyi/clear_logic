@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module ClearResult
+module ClearLogic
   class Service
     include Dry::Transaction
-    include ClearResult::Result
+    include ClearLogic::Result
 
     class << self
       attr_accessor :context_class
@@ -13,7 +13,7 @@ module ClearResult
       end
 
       def build_context
-        self.context_class = ClearResult::ContextBuilder.call
+        self.context_class = ClearLogic::ContextBuilder.call
       end
 
       def context(name, type, as: :option)

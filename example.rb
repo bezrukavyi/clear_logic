@@ -1,4 +1,4 @@
-class BaseService < ClearResult::Service
+class BaseService < ClearLogic::Service
   context :params, Dry::Types['strict.hash']
 
   errors :invalid, :not_found

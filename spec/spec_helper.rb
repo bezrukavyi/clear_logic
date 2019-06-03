@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'clear_result'
+require 'clear_logic'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

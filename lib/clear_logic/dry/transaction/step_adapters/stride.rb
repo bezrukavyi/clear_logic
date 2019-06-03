@@ -7,7 +7,7 @@ module Dry
     class StepAdapters
       class Stride
         include Dry::Monads::Result::Mixin
-        include ClearResult::Result
+        include ClearLogic::Result
 
         def call(operation, options, args)
           context = args.flatten.first
@@ -21,7 +21,7 @@ module Dry
 
           options[:failure] ? service.send(options[:failure], context) : failure(context)
         rescue *Array(options[:rescue].keys) => e
-          context.rescue_error = ClearResult::CatchedError.new(e)
+          context.rescue_error = ClearLogic::CatchedError.new(e)
           rescue_method = options[:rescue][e.class]
           rescue_method ? service.send(rescue_method, context) : failure(context)
         end

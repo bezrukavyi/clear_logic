@@ -2,17 +2,17 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'clear_result/version'
+require 'clear_logic/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'clear_result'
-  spec.version       = ClearResult::VERSION
+  spec.name          = 'clear_logic'
+  spec.version       = ClearLogic::VERSION
   spec.authors       = ['bezrukavyi']
   spec.email         = ['yaroslav.bezrukavyi@gmail.com']
 
   spec.summary       = 'Clear result'
   spec.description   = 'Clear result'
-  spec.homepage      = 'https://github.com/bezrukavyi/clear_result'
+  spec.homepage      = 'https://github.com/bezrukavyi/clear_logic'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-module ClearResult
+module ClearLogic
   module Result
     private
 
     def self.included(base)
       base.extend(ClassMethdos)
 
-      base.errors(*ClearResult::FailureError::ERRORS)
+      base.errors(*ClearLogic::FailureError::ERRORS)
     end
 
     module ClassMethdos
       def errors(*errors_methods)
         errors_methods.each do |error_type|
           define_method(error_type) do |context|
-            context.failure_error ||= ClearResult::FailureError.new(error_type)
+            context.failure_error ||= ClearLogic::FailureError.new(error_type)
 
             failure(context)
           end

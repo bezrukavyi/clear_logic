@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ClearResult
+module ClearLogic
   class CatchedError
     attr_reader :error
 

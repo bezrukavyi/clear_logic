@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ClearResult
+module ClearLogic
   class Matcher
     CASES = %i[success failure].freeze
 
@@ -36,7 +36,7 @@ module ClearResult
       patterns.any? { |pattern| send("#{pattern}_pattern", result) }
     end
 
-    ClearResult::FailureError::ERRORS.each do |error_type|
+    ClearLogic::FailureError::ERRORS.each do |error_type|
       define_method error_type do |result|
         result.failure? && result.value.dig(:error, :type) == error_type
       end

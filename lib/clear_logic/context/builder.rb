@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ClearResult
+module ClearLogic
   class ContextBuilder
     ADDITIONAL = %i[rescue_error failure_error service].freeze
 

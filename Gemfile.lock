@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    clear_result (0.1.0)
+    clear_logic (0.1.0)
       dry-initializer (>= 2.5.0)
       dry-matcher (>= 0.7)
       dry-monads (>= 0.3.1)
@@ -74,7 +74,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.17)
-  clear_result!
+  clear_logic!
   pry
   rake (~> 10.0)
   rspec (~> 3.0)
