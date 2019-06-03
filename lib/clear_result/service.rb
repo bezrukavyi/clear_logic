@@ -34,7 +34,7 @@ module ClearResult
 
           def initialize_context(*args)
             @context = self.class.context_class.new(*args)
-            context[:service] = self
+            context.service = self
 
             success(context)
           end

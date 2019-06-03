@@ -4,19 +4,23 @@ module ClearResult
   module Type
     private
 
-    ERRORS = %i[
-      unauthorized
-      forbidden
-      not_found
-      invalid
-      system
-    ].freeze
+    def self.included(base)
+      base.extend(ClassMethdos)
 
-    ERRORS.each do |error_type|
-      define_method(error_type) do |context|
-        context[:error] ||= error_type
+      base.errors(*ClearResult::FailureError::ERRORS)
+    end
 
-        failure(context)
+    module ClassMethdos
+      def errors(*errors_methods)
+        errors_methods.each do |error_type|
+          define_method(error_type) do |context|
+            context.failure_error ||= ClearResult::FailureError.new(error_type)
+
+            failure(context)
+          end
+
+          private error_type
+        end
       end
     end
 

@@ -9,9 +9,9 @@ module Dry
         include Dry::Monads::Result::Mixin
         include ClearResult::Type
 
-        def call(operation, options, *args)
+        def call(operation, options, args)
           context = args.flatten.first
-          service = context[:service]
+          service = context.service
 
           options[:rescue] ||= {}
 
@@ -21,7 +21,7 @@ module Dry
 
           options[:failure] ? service.send(options[:failure], context) : failure(context)
         rescue *Array(options[:rescue].keys) => e
-          context[:rescue_error] = e
+          context.rescue_error = ClearResult::CatchedError.new(e)
           rescue_method = options[:rescue][e.class]
           rescue_method ? service.send(rescue_method, context) : failure(context)
         end

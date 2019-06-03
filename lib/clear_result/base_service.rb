@@ -3,7 +3,7 @@
 class BaseService < ClearResult::Service
   context :params, Dry::Types['strict.hash']
 
-  # errors :invalid, not_found
+  errors :invalid, :not_found
 
   stride :test, rescue: { ArgumentError => :failure_step }, failure: :failure_step
   stride :next_step

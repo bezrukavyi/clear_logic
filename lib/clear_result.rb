@@ -8,6 +8,8 @@ require 'dry-transaction'
 require 'dry-matcher'
 require 'dry-monads'
 
+require 'clear_result/errors/failure_error'
+require 'clear_result/errors/catched_error'
 require 'clear_result/version'
 require 'clear_result/dry_types'
 require 'clear_result/type'
