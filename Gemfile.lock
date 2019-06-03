@@ -2,11 +2,11 @@ PATH
   remote: .
   specs:
     clear_result (0.1.0)
-      dry-initializer
+      dry-initializer (>= 2.5.0)
       dry-matcher (>= 0.7)
       dry-monads (>= 0.3.1)
       dry-transaction (>= 0.12.0)
-      dry-types
+      dry-types (>= 1.0.0)
 
 GEM
   remote: https://rubygems.org/

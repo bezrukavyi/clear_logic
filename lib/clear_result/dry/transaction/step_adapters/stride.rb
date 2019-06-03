@@ -7,22 +7,23 @@ module Dry
     class StepAdapters
       class Stride
         include Dry::Monads::Result::Mixin
+        include ClearResult::Type
 
-        def call(operation, options, args)
+        def call(operation, options, *args)
+          context = args.flatten.first
+          service = context[:service]
+
           options[:rescue] ||= {}
 
-          unless options[:catch]
-            raise MissingCatchListError, options[:step_name]
-          end
+          result = operation.call(context)
 
-          rollback
-          failure_result
+          return success(result) if result.success?
 
-          result = operation.call(*args)
-          Success(result)
-        rescue *Array(options[:rescue]) => e
-          e = options[:raise].new(e.message) if options[:raise]
-          Failure(e)
+          options[:failure] ? service.send(options[:failure], context) : failure(context)
+        rescue *Array(options[:rescue].keys) => e
+          context[:rescue_error] = e
+          rescue_method = options[:rescue][e.class]
+          rescue_method ? service.send(rescue_method, context) : failure(context)
         end
       end
 

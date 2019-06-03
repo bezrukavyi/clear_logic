@@ -12,26 +12,33 @@ module ClearResult
         new.call(*args)
       end
 
+      def build_context
+        self.context_class = ClearResult::ContextBuilder.call
+      end
+
+      def context(name, type, as: :option)
+        context_class.class_eval do
+          send(as, name, type)
+        end
+      end
+
       def inherited(base)
         base.class_eval do
           attr_reader :context
 
-          context
+          build_context
 
-          tee :init_context
+          step :initialize_context
 
           private
 
-          def init_context(*args)
+          def initialize_context(*args)
             @context = self.class.context_class.new(*args)
+            context[:service] = self
+
+            success(context)
           end
         end
-      end
-
-      def context(&block)
-        self.context_class = ClearResult::ContextBuilder.call("#{name}Context")
-
-        context_class.class_eval(&block) if block_given?
       end
     end
   end

@@ -13,23 +13,19 @@ module ClearResult
     ].freeze
 
     ERRORS.each do |error_type|
-      define_method(error_type) do |**result|
-        result[:error] ||= error_type
+      define_method(error_type) do |context|
+        context[:error] ||= error_type
 
-        failure(result)
+        failure(context)
       end
     end
 
-    def success(**result)
-      Dry::Monads.Success(success_wrap(result))
+    def success(context)
+      Dry::Monads.Success(context)
     end
 
-    def success_wrap(result)
-      result
-    end
-
-    def failure(**result)
-      Dry::Monads.Failure(result)
+    def failure(context)
+      Dry::Monads.Failure(context)
     end
   end
 end

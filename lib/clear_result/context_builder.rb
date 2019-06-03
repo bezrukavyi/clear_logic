@@ -2,9 +2,9 @@
 
 module ClearResult
   class ContextBuilder
-    def self.call(name)
-      klass = Class.new do
-        extend Dry::Initializer
+    def self.call
+      Class.new do
+        extend ::Dry::Initializer
 
         def [](key)
           @additional ||= {}
@@ -16,8 +16,6 @@ module ClearResult
           @additional[key] = value
         end
       end
-
-      Object.const_defined?(name) ? Object.const_get(name) : Object.const_set(name, klass)
     end
   end
 end

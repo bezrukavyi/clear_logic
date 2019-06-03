@@ -2,6 +2,6 @@
 
 RSpec.describe ClearResult do
   it 'has a version number' do
-    BaseService.call
+    BaseService.call(params: {})
   end
 end
