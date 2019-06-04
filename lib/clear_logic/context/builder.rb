@@ -2,13 +2,12 @@
 
 module ClearLogic
   class ContextBuilder
-    ADDITIONAL = %i[rescue_error failure_error service].freeze
-
     def self.call
       Class.new do
         extend ::Dry::Initializer
 
         attr_reader :options
+        attr_accessor :rescue_error, :failure_error, :service, :exit_success
 
         def [](key)
           @options ||= {}
@@ -20,14 +19,16 @@ module ClearLogic
           @options[key] = value
         end
 
-        ADDITIONAL.each do |name|
-          define_method("#{name}=") do |error|
-            self[name] = error
-          end
+        def exit_success?
+          exit_success == true
+        end
 
-          define_method(name) do
-            self[name]
-          end
+        def rescue_error?
+          !rescue_error.nil?
+        end
+
+        def failure_error?
+          !failure_error.nil?
         end
       end
     end

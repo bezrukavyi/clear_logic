@@ -15,6 +15,8 @@ module Dry
 
           options[:rescue] ||= {}
 
+          return context if context.exit_success?
+
           result = operation.call(context)
 
           return success(result) if result.success?

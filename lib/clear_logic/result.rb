@@ -2,12 +2,20 @@
 
 module ClearLogic
   module Result
+    DEFAULT_ERRORS = %i[
+      unauthorized
+      forbidden
+      not_found
+      invalid
+      system
+    ].freeze
+
     private
 
     def self.included(base)
       base.extend(ClassMethdos)
 
-      base.errors(*ClearLogic::FailureError::ERRORS)
+      base.errors(*DEFAULT_ERRORS)
     end
 
     module ClassMethdos
@@ -26,6 +34,11 @@ module ClearLogic
 
     def success(context)
       Dry::Monads.Success(context)
+    end
+
+    def exit_success(context)
+      context.exit_success = true
+      success(context)
     end
 
     def failure(context)

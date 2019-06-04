@@ -1,16 +1,25 @@
 class BaseService < ClearLogic::Service
-  context :params, Dry::Types['strict.hash']
+  context :store, Dry::Types['service.store']
 
-  errors :invalid, :not_found
+  errors :custom_error
 
   stride :test, rescue: { ArgumentError => :raise_step }, failure: :failure_step
   stride :next_step
+  stride :next_step
+  stride :next_step
+  stride :next_step
 
   def test(context)
-    failure(context)
+    context.user
+    context.params
+
+    custom_error(context)
+    context[:cdasdasd] = :dasdasdasd
   end
 
   def raise_step(context)
+    context[:cdasdasd]
+
     failure(context)
   end
 
