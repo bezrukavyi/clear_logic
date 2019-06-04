@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'dry-transaction', '>= 0.12.0'
   spec.add_dependency 'dry-initializer', '>= 2.5.0'
   spec.add_dependency 'dry-types', '>= 1.0.0'
+  spec.add_dependency 'dry-inflector'
 
   spec.add_development_dependency 'bundler', '~> 1.17'
   spec.add_development_dependency 'pry'

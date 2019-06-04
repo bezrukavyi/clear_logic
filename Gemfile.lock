@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     clear_logic (0.1.0)
+      dry-inflector
       dry-initializer (>= 2.5.0)
       dry-matcher (>= 0.7)
       dry-monads (>= 0.3.1)

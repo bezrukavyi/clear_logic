@@ -4,6 +4,6 @@ require_relative '../example'
 
 RSpec.describe ClearLogic do
   it 'has a version number' do
-    BaseService.call(params: {})
+    BaseService.call(info: 'asdadasd')
   end
 end

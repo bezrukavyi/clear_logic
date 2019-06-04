@@ -6,7 +6,7 @@ module ClearLogic
     include ClearLogic::Result
 
     class << self
-      attr_accessor :context_class
+      attr_accessor :context_class, :logger_instance, :log_options
 
       def call(*args)
         new.call(*args)
@@ -22,11 +22,18 @@ module ClearLogic
         end
       end
 
+      def logger(logger_klass, log_all: false)
+        self.log_options = { log_all: log_all }
+        self.logger_instance = ClearLogic::Logger::Adapter.new(logger_klass).logger
+      end
+
       def inherited(base)
         base.class_eval do
           attr_reader :context
 
           build_context
+
+          logger ClearLogic::Logger::Default
 
           step :initialize_context
 

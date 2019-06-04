@@ -36,7 +36,7 @@ module ClearLogic
       patterns.any? { |pattern| send("#{pattern}_pattern", result) }
     end
 
-    ClearLogic::FailureError::ERRORS.each do |error_type|
+    ClearLogic::Result::DEFAULT_ERRORS.each do |error_type|
       define_method error_type do |result|
         result.failure? && result.value.dig(:error, :type) == error_type
       end

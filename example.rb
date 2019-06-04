@@ -1,20 +1,14 @@
 class BaseService < ClearLogic::Service
-  context :store, Dry::Types['service.store']
+  context :info, Dry::Types['strict.string']
 
   errors :custom_error
 
   stride :test, rescue: { ArgumentError => :raise_step }, failure: :failure_step
-  stride :next_step
-  stride :next_step
-  stride :next_step
-  stride :next_step
+  stride :next_step, log: true
 
   def test(context)
-    context.user
-    context.params
-
-    custom_error(context)
     context[:cdasdasd] = :dasdasdasd
+    custom_error(context)
   end
 
   def raise_step(context)

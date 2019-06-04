@@ -7,7 +7,6 @@ module ClearLogic
       forbidden
       not_found
       invalid
-      system
     ].freeze
 
     private
