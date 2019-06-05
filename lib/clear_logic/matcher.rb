@@ -20,7 +20,7 @@ module ClearLogic
 
     def success_case
       Dry::Matcher::Case.new(
-        match: ->(result) { result.success? && !result['result.contract.default']&.failure? },
+        match: ->(result) { result.success? },
         resolve: ->(result) { result }
       )
     end
@@ -33,12 +33,20 @@ module ClearLogic
     end
 
     def case_patterns(result, patterns)
-      patterns.any? { |pattern| send("#{pattern}_pattern", result) }
+      patterns.any? do |pattern|
+        return false unless respond_to?("#{pattern}_pattern", private: true)
+
+        send("#{pattern}_pattern", result)
+      end
     end
 
     ClearLogic::Result::DEFAULT_ERRORS.each do |error_type|
-      define_method error_type do |result|
-        result.failure? && result.value.dig(:error, :type) == error_type
+      define_method "#{error_type}_pattern" do |result|
+        return false unless result.failure?
+
+        result.value.respond_to?(:failure_error) &&
+          !result.value.failure_error.nil? &&
+          result.value.failure_error.status == error_type
       end
     end
   end

@@ -3,16 +3,14 @@
 RSpec.describe ClearLogic::Result do
   CUSTOM_ERRORS = %i[first_custom_error second_custom_error].freeze
 
-  before(:all) do
-    class TestContext
-      attr_accessor :failure_error
-    end
+  class TestContext
+    attr_accessor :failure_error
+  end
 
-    class TestResult
-      include ClearLogic::Result
+  class TestResult
+    include ClearLogic::Result
 
-      errors *CUSTOM_ERRORS
-    end
+    errors *CUSTOM_ERRORS
   end
 
   let(:context) { TestContext.new }
