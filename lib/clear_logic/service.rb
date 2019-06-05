@@ -16,9 +16,10 @@ module ClearLogic
         self.context_class = ClearLogic::ContextBuilder.call
       end
 
-      def context(name, type, as: :option)
+      def context(name, type, **options)
         context_class.class_eval do
-          send(as, name, type)
+          method = options.delete(:as) || :option
+          send(method, name, type, **options)
         end
       end
 

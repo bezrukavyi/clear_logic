@@ -8,16 +8,12 @@ module ClearLogic
       @klass = klass
     end
 
-    def register(key = klass_key)
+    def register(key)
       Dry::Types.register(key, define)
     end
 
     def define
       Dry::Types::Nominal.new(klass).constrained(type: klass)
-    end
-
-    def klass_key
-      klass.name.underscore.gsub('/', '.')
     end
   end
 end
