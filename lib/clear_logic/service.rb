@@ -24,8 +24,8 @@ module ClearLogic
       end
 
       def logger(logger_klass, log_all: false, log_path: nil)
-        self.log_options = { log_all: log_all, log_path: log_path }
-        self.logger_instance = ClearLogic::Logger::Adapter.new(logger_klass).logger
+        self.log_options = { log_all: log_all }
+        self.logger_instance = ClearLogic::Logger::Adapter.new(logger_klass, log_path).logger
       end
 
       def inherited(base)

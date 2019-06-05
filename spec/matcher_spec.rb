@@ -8,7 +8,7 @@ RSpec.describe ClearLogic::Matcher do
     invalid
   ].freeze
 
-  class TestResult
+  class TestMatcherResult
     include ClearLogic::Result
 
     errors :custom_error
@@ -33,7 +33,7 @@ RSpec.describe ClearLogic::Matcher do
         let(:context) { double(:context, 'failure_error=': nil, failure_error: failure_error) }
 
         it "should return '#{name}_result'" do
-          result_instance = TestResult.new.send(name, context)
+          result_instance = TestMatcherResult.new.send(name, context)
 
           result = match_result(result_instance)
 
@@ -47,7 +47,7 @@ RSpec.describe ClearLogic::Matcher do
     let(:context) { double(:context, 'failure_error=': nil, failure_error: nil) }
 
     it "should return 'failure_result'" do
-      result_instance = TestResult.new.send(:failure, context)
+      result_instance = TestMatcherResult.new.send(:failure, context)
 
       result = match_result(result_instance)
 
@@ -59,7 +59,7 @@ RSpec.describe ClearLogic::Matcher do
     let(:context) { double(:context) }
 
     it "should return 'success_result'" do
-      result_instance = TestResult.new.send(:success, context)
+      result_instance = TestMatcherResult.new.send(:success, context)
 
       result = match_result(result_instance)
 

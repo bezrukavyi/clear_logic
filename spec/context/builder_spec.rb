@@ -8,20 +8,20 @@ RSpec.describe ClearLogic::ContextBuilder do
   let(:service) { ClearLogic::Service }
   let(:stub_step) { FFaker::Lorem.word }
 
-  let(:instance) { TestContext.new(name: stub_name) }
-
-  before(:all) do
-    TestContext = described_class.call.class_eval do
+  let(:context_class) do
+    described_class.call.class_eval do
       option :name, Dry::Types['strict.string']
     end
   end
+
+  let(:instance) { context_class.new(name: stub_name) }
 
   it 'should has interface with name property' do
     expect(instance.name).to eq(stub_name)
   end
 
   it 'should raise argument error' do
-    expect { TestContext.new(another_name: stub_name) }.to raise_error(KeyError)
+    expect { context_class.new(another_name: stub_name) }.to raise_error(KeyError)
   end
 
   describe 'Abilty of adding options' do
