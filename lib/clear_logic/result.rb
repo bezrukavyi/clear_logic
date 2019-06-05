@@ -9,6 +9,14 @@ module ClearLogic
       invalid
     ].freeze
 
+    class Success < Dry::Monads::Result::Success
+      alias_method :value, :success
+    end
+
+    class Failure < Dry::Monads::Result::Failure
+      alias_method :value, :failure
+    end
+
     private
 
     def self.included(base)
@@ -32,7 +40,7 @@ module ClearLogic
     end
 
     def success(context)
-      Dry::Monads.Success(context)
+      Success.new(context)
     end
 
     def exit_success(context)
@@ -41,7 +49,7 @@ module ClearLogic
     end
 
     def failure(context)
-      Dry::Monads.Failure(context)
+      Failure.new(context)
     end
   end
 end
