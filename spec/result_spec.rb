@@ -23,7 +23,7 @@ RSpec.describe ClearLogic::Result do
 
         expect(result.is_a?(ClearLogic::Result::Failure)).to be_truthy
         expect(result.failure?).to be_truthy
-        expect(result.value).to eq(context)
+        expect(result.context).to eq(context)
         expect(context.failure_error.status).to eq(name)
       end
     end

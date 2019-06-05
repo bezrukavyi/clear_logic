@@ -23,8 +23,8 @@ module ClearLogic
         end
       end
 
-      def logger(logger_klass, log_all: false)
-        self.log_options = { log_all: log_all }
+      def logger(logger_klass, log_all: false, log_path: nil)
+        self.log_options = { log_all: log_all, log_path: log_path }
         self.logger_instance = ClearLogic::Logger::Adapter.new(logger_klass).logger
       end
 

@@ -44,9 +44,9 @@ module ClearLogic
       define_method "#{error_type}_pattern" do |result|
         return false unless result.failure?
 
-        result.value.respond_to?(:failure_error) &&
-          !result.value.failure_error.nil? &&
-          result.value.failure_error.status == error_type
+        result.context.respond_to?(:failure_error) &&
+          !result.context.failure_error.nil? &&
+          result.context.failure_error.status == error_type
       end
     end
   end

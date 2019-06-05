@@ -1,4 +1,11 @@
 # frozen_string_literal: true
+Dry::Monads::Result::Success.class_eval do
+  alias context success
+end
+
+Dry::Monads::Result::Failure.class_eval do
+  alias context failure
+end
 
 module ClearLogic
   module Result
@@ -8,14 +15,6 @@ module ClearLogic
       not_found
       invalid
     ].freeze
-
-    class Success < Dry::Monads::Result::Success
-      alias_method :value, :success
-    end
-
-    class Failure < Dry::Monads::Result::Failure
-      alias_method :value, :failure
-    end
 
     private
 
@@ -40,7 +39,7 @@ module ClearLogic
     end
 
     def success(context)
-      Success.new(context)
+      Dry::Monads::Result::Success.new(context)
     end
 
     def exit_success(context)
@@ -49,7 +48,7 @@ module ClearLogic
     end
 
     def failure(context)
-      Failure.new(context)
+      Dry::Monads::Result::Failure.new(context)
     end
   end
 end

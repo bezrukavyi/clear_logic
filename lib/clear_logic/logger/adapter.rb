@@ -16,15 +16,12 @@ module ClearLogic
       private
 
       def path
-        @path ||= File.dirname(log_path)
+        File.dirname(log_path)
       end
 
       def log_path
-        @log_path ||= file_path.gsub('app', 'log').gsub(/\.[a-z]+$/, '.log')
-      end
-
-      def file_path
-        @file_path ||= Thread.current.backtrace[2].split(':')[0]
+        file_name = Dry::Inflector.new.underscore(logger_klass.name.gsub('::', '/'))
+        File.join(ENV['BUNDLE_GEMFILE'], "log/#{file_name}.log").gsub!('Gemfile/', '')
       end
 
       def create_logger
