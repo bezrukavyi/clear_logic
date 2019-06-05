@@ -6,7 +6,7 @@ module ClearLogic
       Class.new do
         extend ::Dry::Initializer
 
-        attr_reader :options, :args
+        attr_reader :args
         attr_accessor :rescue_error, :failure_error, :service, :exit_success, :step
 
         def initialize(*args)
@@ -15,13 +15,13 @@ module ClearLogic
         end
 
         def [](key)
-          @options ||= {}
-          @options[key]
+          @additional_opts ||= {}
+          @additional_opts[key]
         end
 
         def []=(key, value)
-          @options ||= {}
-          @options[key] = value
+          @additional_opts ||= {}
+          @additional_opts[key] = value
         end
 
         def exit_success?
@@ -40,10 +40,10 @@ module ClearLogic
           {
             rescue_error: rescue_error,
             failure_error: failure_error,
-            service: service,
+            service: service.class.name,
             exit_success: exit_success,
             step: step,
-            options: options,
+            options: @additional_opts,
             args: args
           }
         end

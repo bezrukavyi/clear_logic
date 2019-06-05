@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe ClearLogic::Service do
-  class DefaultLoggerService < ClearLogic::Service
+  class LoggerService < ClearLogic::Service
     STUBS = [
       FFaker::Lorem.word,
       FFaker::Lorem.word,
@@ -38,12 +38,12 @@ RSpec.describe ClearLogic::Service do
   context 'Logger' do
     context 'Default logger' do
       it 'should contain first and third context hash' do
-        result = DefaultLoggerService.call
+        result = LoggerService.call
 
         expect(result).to be_success
-        expect(file).to include(DefaultLoggerService::STUBS[0])
-        expect(file).not_to include(DefaultLoggerService::STUBS[1])
-        expect(file).to include(DefaultLoggerService::STUBS[2])
+        expect(file).to include(LoggerService::STUBS[0])
+        expect(file).not_to include(LoggerService::STUBS[1])
+        expect(file).to include(LoggerService::STUBS[2])
       end
     end
   end
