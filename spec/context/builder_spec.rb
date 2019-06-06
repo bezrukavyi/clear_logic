@@ -2,7 +2,7 @@
 
 RSpec.describe ClearLogic::ContextBuilder do
   let(:stub_name) { FFaker::Lorem.word }
-  let(:cathed_error) { ClearLogic::CatchedError.new(stub_name) }
+  let(:catched_error) { ClearLogic::CatchedError.new(stub_name) }
   let(:failure_error) { ClearLogic::FailureError.new(stub_name) }
   let(:my_option) { FFaker::Lorem.word }
   let(:service) { ClearLogic::Service }
@@ -44,17 +44,17 @@ RSpec.describe ClearLogic::ContextBuilder do
     end
   end
 
-  describe '#rescue_error?' do
+  describe '#catched_error?' do
     it 'should return true' do
-      instance.rescue_error = cathed_error
+      instance.catched_error = catched_error
 
-      expect(instance.rescue_error).to eq(cathed_error)
-      expect(instance.rescue_error?).to be_truthy
+      expect(instance.catched_error).to eq(catched_error)
+      expect(instance.catched_error?).to be_truthy
     end
 
     it 'should return false' do
-      expect(instance.rescue_error).to be_nil
-      expect(instance.rescue_error?).to be_falsey
+      expect(instance.catched_error).to be_nil
+      expect(instance.catched_error?).to be_falsey
     end
   end
 
@@ -74,16 +74,16 @@ RSpec.describe ClearLogic::ContextBuilder do
 
   describe '#to_h' do
     it 'should return Hash with inforamtion' do
-      instance.rescue_error = cathed_error
+      instance.catched_error = catched_error
       instance.failure_error = failure_error
       instance.service = service
       instance.step = stub_step
       instance[:my_option] = my_option
 
       info = {
-        rescue_error: cathed_error,
+        catched_error: catched_error,
         failure_error: failure_error,
-        service: service,
+        service: service.class,
         exit_success: nil,
         step: stub_step,
         options: { my_option: my_option },

@@ -7,7 +7,7 @@ module ClearLogic
         extend ::Dry::Initializer
 
         attr_reader :args
-        attr_accessor :rescue_error, :failure_error, :service, :exit_success, :step
+        attr_accessor :catched_error, :failure_error, :service, :exit_success, :step
 
         def initialize(*args)
           @args = args
@@ -28,8 +28,8 @@ module ClearLogic
           exit_success == true
         end
 
-        def rescue_error?
-          !rescue_error.nil?
+        def catched_error?
+          !catched_error.nil?
         end
 
         def failure_error?
@@ -38,9 +38,9 @@ module ClearLogic
 
         def to_h
           {
-            rescue_error: rescue_error,
+            catched_error: catched_error,
             failure_error: failure_error,
-            service: service.class.name,
+            service: service.class,
             exit_success: exit_success,
             step: step,
             options: @additional_opts,

@@ -3,11 +3,12 @@
 module ClearLogic
   module Logger
     class Adapter
-      attr_reader :logger_klass, :log_path
+      attr_reader :service_class, :logger_class, :log_path
 
-      def initialize(logger_klass, log_path = nil)
-        @logger_klass = logger_klass
-        @log_path = log_path || default_log_path
+      def initialize(service_class)
+        @service_class = service_class
+        @logger_class = service_class.logger_class
+        @log_path = service_class.logger_options[:log_path] || default_log_path
       end
 
       def logger
@@ -19,7 +20,7 @@ module ClearLogic
       def create_logger
         system('mkdir', '-p', path) unless Dir.exist?(path)
 
-        logger_klass.new(log_path)
+        logger_class.new(log_path)
       end
 
       def path
@@ -27,7 +28,7 @@ module ClearLogic
       end
 
       def default_log_path
-        file_name = Dry::Inflector.new.underscore(logger_klass.name.gsub('::', '/'))
+        file_name = Dry::Inflector.new.underscore(service_class.name.gsub('::', '/'))
         File.join(ENV['BUNDLE_GEMFILE'], "log/#{file_name}.log").gsub!('Gemfile/', '')
       end
     end

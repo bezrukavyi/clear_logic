@@ -30,11 +30,11 @@ module ClearLogic
 
         failure_method
       rescue *Array(options[:rescue].keys) => e
-        rescue_error(e)
+        catch_error(e)
       end
 
-      def rescue_error(error)
-        context.rescue_error = ClearLogic::CatchedError.new(error)
+      def catch_error(error)
+        context.catched_error = error
 
         log_result
 
@@ -43,7 +43,7 @@ module ClearLogic
       end
 
       def log_result
-        return unless options[:log] || context.service.class.log_options[:log_all]
+        return unless options[:log] || context.service.class.logger_options[:log_all]
 
         context.service.class.logger_instance.info(context)
       end

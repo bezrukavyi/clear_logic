@@ -15,7 +15,7 @@ RSpec.describe ClearLogic::Service do
     stride :third, rescue: { StandardError => :third_rollback }, failure: :success
 
     def first(context)
-      context[:test] = { first: STUBS[0] }
+      insert_first_to_context
       return failure(context) if context.options[:first_rollback]
 
       success(context)
@@ -49,6 +49,10 @@ RSpec.describe ClearLogic::Service do
     def third_rollback(context)
       context[:test].delete(:third)
       failure(context)
+    end
+
+    def insert_first_to_context
+      context[:test] = { first: STUBS[0] }
     end
   end
 
